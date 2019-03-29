@@ -1,0 +1,21 @@
+(@)install npm
+npm install -g @angular/cli
+
+(@)update npm cli
+npm install -g @angular/cli@latest
+
+(@)install new angular app
+ng new appName
+
+(@)run app
+ng serve
+
+(@)create component
+ng g c componentName
+
+
+(@)install bootstrap
+npm install bootstrap — save
+
+(@)install jquery
+npm install jquery — save
