@@ -1,0 +1,12 @@
+#install 
+npm install ng-lazyload-image --save
+
+#app.module
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
+exports: [
+        LazyLoadImageModule
+    ]
+    
+#app.component.html
+<img [defaultImage]="'assets/images/blur.jpg'" [lazyLoad]="'assets/images/5.jpg'" [offset]="200"/>
