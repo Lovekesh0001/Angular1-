@@ -1,4 +1,41 @@
-#app-routnig.module.ts===============================================================================================
+==========================================================================================================================
+app.module.ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+// Shared Module
+import { SharedModule } from './shared.module';
+
+// main Router
+import { AppRoutingModule } from './app-routing.module';
+
+import { HomeComponent } from './pages/home/home.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { FooterComponent } from './pages/footer/footer.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SharedModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+==========================================================================================================================
+
+
+==========================================================================================================================
+#app-routnig.module.ts
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -22,8 +59,10 @@ const appRoutes: Routes = [
 })
 
 export class AppRoutingModule { }
+==========================================================================================================================
 
-#custom module home.module.ts===================================================================================================
+==========================================================================================================================
+#custom module home.module.ts
 
 import { NgModule } from '@angular/core';
 
@@ -42,7 +81,9 @@ import { LoginComponent } from '../login/login.component';
     ]
 })
 export class HomeModule {}
+==========================================================================================================================
 
+==========================================================================================================================
 #children routing home-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -61,3 +102,23 @@ import { LoginComponent } from './../login/login.component';
 })
 
 export class HomeRoutingModule {}
+==========================================================================================================================
+
+
+==========================================================================================================================
+#create shared module downloaded shared.module.ts
+import { NgModule } from '@angular/core';
+
+// custom npm
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
+@NgModule({
+    declarations: [],
+    imports: [],
+    exports: [
+        LazyLoadImageModule
+    ]
+})
+
+export class SharedModule {}
+==========================================================================================================================
