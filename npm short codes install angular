@@ -13,6 +13,14 @@ ng serve
 (@)create component
 ng g c componentName
 
+(@) create model
+ng g class models/login --type=model 
+
+(@)if you have more than one module  generate component
+ng generate component register --module=home/home.module
+
+or if you dont want automatic import
+ng g component component-name --skip-import
 
 (@)install bootstrap
 npm install bootstrap — save
