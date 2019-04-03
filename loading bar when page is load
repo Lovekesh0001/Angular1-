@@ -1,0 +1,48 @@
+
+#please include in angular.json file in css
+"styles": [
+ "node_modules/ng2-slim-loading-bar/bundles/style.css"
+ ]
+=========================================================================================================================
+#intall using npm
+npm install ng2-slim-loading-bar --save
+=========================================================================================================================
+
+=========================================================================================================================
+#app.module.ts
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+
+exports: [
+        SlimLoadingBarModule
+    ]
+=========================================================================================================================
+
+=========================================================================================================================
+#app.component.ts
+import { Component, OnInit } from '@angular/core';
+
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  constructor(private slimLoadingBarService: SlimLoadingBarService) { }
+
+  ngOnInit() {
+    this.slimLoadingBarService.start();
+
+    setTimeout(() => {
+      this.slimLoadingBarService.complete();
+    }, 2000);
+  }
+}
+=========================================================================================================================
+
+=========================================================================================================================
+#add this to html file
+<ng2-slim-loading-bar></ng2-slim-loading-bar>
+=========================================================================================================================
