@@ -1,12 +1,11 @@
 ===========================================================================================================================
 #app.module.ts
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     ReactiveFormsModule
   ],
 ===========================================================================================================================
