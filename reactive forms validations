@@ -1,0 +1,231 @@
+===========================================================================================================================
+#app.module.ts
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule
+  ],
+===========================================================================================================================
+
+===========================================================================================================================
+#register.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+
+// import custom validator to validate that password and confirm password fields match
+import { MustMatch } from '../../_helpers/must-match.validator';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterComponent implements OnInit {
+  protected registerForm: FormGroup;
+  submitted = false;
+  refrence = false;
+
+  constructor(
+    private slimLoadingBarService: SlimLoadingBarService,
+    private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      signupfname: ['', Validators.required],
+      signuplname: ['', Validators.required],
+      signupemail: ['', [Validators.required, Validators.email]],
+      signupphone: ['', Validators.required],
+      signuppassword: ['', [Validators.required, Validators.minLength(6)]],
+      signupcpassword: ['', Validators.required],
+      signupusertype: ['', Validators.required],
+      signupReference: ['', Validators.required],
+      tnc: [false, Validators.pattern('true')],     //checkbox
+      recaptcha: ['', Validators.required],
+      signupReferencename: ['', Validators.required],
+      signupReferenceemail: ['', Validators.required],
+      signupReferencephone: ['', Validators.required],
+    }, {
+      validator: MustMatch('signuppassword', 'signupcpassword')
+    });
+  }
+
+  show_reference(refr) {
+    if (refr === 'Reference') {
+      this.refrence = true;
+      this.registerForm.get('signupReferencename').setValidators([Validators.required]);
+      this.registerForm.get('signupReferenceemail').setValidators([Validators.required, Validators.email]);
+      this.registerForm.get('signupReferencephone').setValidators([Validators.required]);
+    } else {
+      this.refrence = false;
+      this.registerForm.get('signupReferencename').setValidators(null);
+      this.registerForm.get('signupReferencename').updateValueAndValidity();
+      this.registerForm.get('signupReferencename').setValue('');
+      this.registerForm.get('signupReferencephone').setValue('');
+      this.registerForm.get('signupReferenceemail').setValue('');
+      this.registerForm.get('signupReferenceemail').setValidators(null);
+      this.registerForm.get('signupReferenceemail').updateValueAndValidity();
+      this.registerForm.get('signupReferencephone').setValidators(null);
+      this.registerForm.get('signupReferencephone').updateValueAndValidity();
+    }
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
+
+  registerFormSubmit() {
+    this.submitted = true;
+    //console.log(this.registerForm.value);
+    //console.log(this.registerForm.value.signupReferencephone);
+    if (this.registerForm.valid && this.registerForm.value.tnc === true) {
+      console.log(this.registerForm.value);
+    }
+   // this.registerForm.reset();
+   // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
+}
+
+}
+===========================================================================================================================
+
+===========================================================================================================================
+#register.component.html
+<form [formGroup]="registerForm" class="validate_form boxSignUpForm text-left" (ngSubmit)="registerFormSubmit()">
+    <div class="halfFloat relative marginB20 paddingL0R15">
+        <label class="pull-left">First name</label>
+        <input class="form-control" type="text"  formControlName="signupfname"
+         [ngClass]="{ 'is-invalid': submitted && f.signupfname.errors }">
+         <div *ngIf="submitted && f.signupfname.errors" class="invalid-feedback">
+            <div *ngIf="f.signupfname.errors.required">First Name is required</div>
+        </div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL15R0">
+        <label class="pull-left">Last name</label>
+        <input type="text" formControlName="signuplname" [ngClass]="{ 'is-invalid': submitted && f.signuplname.errors }">
+        <div *ngIf="submitted && f.signuplname.errors" class="invalid-feedback">
+            <div *ngIf="f.signuplname.errors.required">Last Name is required</div>
+        </div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL0R15">
+        <label class="pull-left">Email</label>
+        <input type="text" formControlName="signupemail" [ngClass]="{ 'is-invalid': submitted && f.signupemail.errors }">
+        <div *ngIf="submitted && f.signupemail.errors" class="invalid-feedback">
+            <div *ngIf="f.signupemail.errors.required">Email is required</div>
+            <div *ngIf="f.signupemail.errors.email">Email must be a valid email address</div>
+        </div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL15R0">
+        <label class="pull-left">Phone</label>
+        <div class="clearfix"></div>
+        <div class="phoneGroup relative " style="width:100%">
+            <input maxlength="20" type="text" formControlName="signupphone" [ngClass]="{ 'is-invalid': submitted && f.signupphone.errors }">
+            <div *ngIf="submitted && f.signupphone.errors" class="invalid-feedback">
+                <div *ngIf="f.signupphone.errors.required">Phone Number is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL0R15 ">
+        <label class="pull-left">Password</label>
+        <input type="password" formControlName="signuppassword" [ngClass]="{ 'is-invalid': submitted && f.signuppassword.errors }">
+        <div *ngIf="submitted && f.signuppassword.errors" class="invalid-feedback">
+            <div *ngIf="f.signuppassword.errors.required">Password is required</div>
+            <div *ngIf="f.signuppassword.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL15R0">
+        <label class="pull-left">Confirm Password</label>
+        <div class="clearfix"></div>
+        <div class="phoneGroup relative " style="width:100%">
+            <input type="password" formControlName="signupcpassword" [ngClass]="{ 'is-invalid': submitted && f.signupcpassword.errors }">
+            <div *ngIf="submitted && f.signupcpassword.errors" class="invalid-feedback">
+                <div *ngIf="f.signupcpassword.errors.required">Confirm Password is required</div>
+                <div *ngIf="f.signupcpassword.errors.mustMatch">Confirm Passwords must match to Password</div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="halfFloat relative marginB20 paddingL0R15">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon11">I am a</span>
+            <select class="form-control" formControlName="signupusertype">
+                <option value="Property Owner">Property Owner</option>
+                <option value="Property Manager">Property Manager</option>
+            </select>
+        </div>
+        <div *ngIf="submitted && f.signupusertype.errors" class="invalid-feedback">
+                <div *ngIf="f.signupusertype.errors.required">I am a is required</div>
+            </div>
+    </div>
+
+    <div class="halfFloat relative marginB20 paddingL15R0">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">Where did you find us</span>
+            <select class="form-control" formControlName="signupReference" (change) = "show_reference($event.target.value);">
+                <option value="Online Advertisement">Online Advertisement</option>
+                <option value="Reference">Reference</option>
+                <option value="Sales Rep">Sales Rep</option>
+                <option value="Search Engines">Search Engines</option>
+                <option value="Newsletter">Newsletter</option>
+                <option value="Others">Others</option>
+            </select>
+        </div>
+        <div *ngIf="submitted && f.signupReference.errors" class="invalid-feedback">
+           <div *ngIf="f.signupReference.errors.required">Where did you find us is required</div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="halfFloat relative">
+            <div id="reference_div" *ngIf="refrence">
+                <h3 style="text-align:center; padding-bottom:10px; text-transform:uppercase;">Enter Reference info</h3>
+                <div class="input-group input-group-lg" style="margin:4px 0px;">
+                    <span class="input-group-addon"><i class="fa fa-user fa-1x" style="font-size: 16px;"></i></span>
+                    <input type="text" formControlName="signupReferencename" class="form-control" placeholder="Referrer Name">
+                    <div *ngIf="submitted && f.signupReferencename.errors" class="invalid-feedback">
+                            <div *ngIf="f.signupReferencename.errors.required">Referrer Name is required</div>
+                         </div>
+                </div>
+                <div class="input-group input-group-lg" style="margin:4px 0px;">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-1x" style="font-size: 12px;margin-right: 0;"></i></span>
+                    <input type="text" formControlName="signupReferenceemail" class="form-control" placeholder="Referrer Email">
+                    <div *ngIf="submitted && f.signupReferenceemail.errors" class="invalid-feedback">
+                            <div *ngIf="f.signupReferenceemail.errors.required">Referrer Email is required</div>
+                            <div *ngIf="f.signupReferenceemail.errors.email">Referrer Email must be a valid email address</div>
+                         </div>
+                </div>
+                <div class="input-group input-group-lg" style="margin:4px 0px;">
+                    <span class="input-group-addon"><i class="fa fa-phone fa-1x" style="font-size: 16px;"></i></span>
+                    <input type="text" formControlName="signupReferencephone" class="form-control" placeholder="Referrer Phone">
+                    <div *ngIf="submitted && f.signupReferencephone.errors" class="invalid-feedback">
+                            <div *ngIf="f.signupReferencephone.errors.required">Referrer Phone is required</div>
+                         </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    <ngx-recaptcha2 #captchaElem
+      [siteKey]="'6LemyWYUAAAAAOK2snxeA0oFNnIU5bvGNNUl_hIZ'"
+      formControlName="recaptcha">
+    </ngx-recaptcha2>
+    <div *ngIf="submitted && f.recaptcha.errors" class="invalid-feedback">
+        <div *ngIf="f.recaptcha.errors.required">Please Verify you are not a robot</div>
+    </div>
+    <div class="halfFloat relative marginB20 paddingL0R15 ">
+        <div class="checkbox">
+            <label>
+                <input checked="checked" type="checkbox" value="tnc" formControlName="tnc"> <a target="_blank" href="">I agree with terms and conditions </a>
+            </label>
+            <div *ngIf="submitted && f.tnc.errors" class="invalid-feedback">
+                <div *ngIf="f.tnc.errors.pattern">Please accept terms and conditions</div>
+            </div>
+        </div>
+    </div>
+    <div class="clear paddingT10">
+        <button name="signupbtn" type="submit" class="btnType5">Continue</button>
+    </div>
+</form>
+===========================================================================================================================
