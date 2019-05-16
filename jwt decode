@@ -1,0 +1,6 @@
+npm i jwt-decode --save
+
+#in component.ts
+import * as jwt_decode from 'jwt-decode';
+
+this.tokendata = jwt_decode(this.authenticationService.getToken());
