@@ -1,0 +1,39 @@
+#npm
+npm install ng-pick-datetime --save
+npm install ng-pick-datetime-moment --save
+
+#css
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+#.component
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
+@Component({
+    selector: 'app-range-example',
+    templateUrl: './range.component.html',
+    styleUrls: ['./range.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class RangeComponent implements OnInit {
+
+    public dateTimeRange: Date[];
+    public min = new Date();
+
+    constructor() {
+    }
+
+    public ngOnInit() {
+    }
+
+}
+
+#html
+<input [min]="min" name="dateTimeRange" [(ngModel)]="dateTimeRange" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [selectMode]="'rangeFrom'" readonly="" type="text" class="form-control pointer" ></div>
+<owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #dt2></owl-date-time>
+
+<input [min]="min" name="dateTimeRange" [(ngModel)]="dateTimeRange" [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" [selectMode]="'rangeTo'" readonly="" type="text" class="form-control pointer" ></div>
+<owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #dt3></owl-date-time>
+
+
+<owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> // for timer
+<owl-date-time [pickerType]="'both'" #dt2></owl-date-time>  // for timer and calender
