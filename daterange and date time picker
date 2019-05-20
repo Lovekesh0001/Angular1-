@@ -37,3 +37,6 @@ export class RangeComponent implements OnInit {
 
 <owl-date-time [pickerType]="'timer'" #dt2></owl-date-time> // for timer
 <owl-date-time [pickerType]="'both'" #dt2></owl-date-time>  // for timer and calender
+
+for more info 
+https://npm.taobao.org/package/ng-pick-datetime-highlight
