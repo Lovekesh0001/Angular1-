@@ -1,0 +1,78 @@
+#npm install ngx-pagination --save
+
+#module.ts
+import {NgxPaginationModule} from 'ngx-pagination';
+imports: [
+    CommonModule,
+    PagesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    NgxPaginationModule
+  ],
+
+#component
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from './../../_services/user.service';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-destination',
+  templateUrl: './destination.component.html',
+  styleUrls: ['./destination.component.css']
+})
+export class DestinationComponent implements OnInit {
+  allDestinations = '';
+  destinationId: number;
+  config: any;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private toastr: ToastrService) {
+
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 10,
+      totalItems: ''
+    };
+  }
+
+  ngOnInit() {
+    this.destinationId = this.activatedRoute.snapshot.params.destinationId;
+    this.getAllDestination('1', '20');
+  }
+
+  getAllDestination(currentPage, itemsPerPage) {
+    this.userService.destination(currentPage, itemsPerPage, this.destinationId).subscribe((data: any) => {
+      if (data.responseCode === '200') {
+          this.allDestinations = data.data;
+          this.config.totalItems = data.recordsTotal;
+      } else {
+        this.router.navigateByUrl('page-not-found');
+      }
+    },
+    error => {
+        this.toastr.error(error + ' || Check your internet Connection', 'Eroor ::');
+    });
+  }
+
+  pageChange(newPage: number) {
+    this.getAllDestination(newPage, '20');
+ // this.router.navigate([''], { queryParams: { page: newPage } });
+ }
+
+}
+
+#html
+<div class="row" *ngFor="let destinations of allDestinations | paginate: { itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: config.totalItems }" >
+</div>
+<div class="listings_footer" *ngIf="allDestinations.length!=0">
+        <pagination-controls *ngIf="allDestinations.length!=config.totalItems"
+            autoHide="true"
+            directionLinks="true"
+            responsive="true"
+            class="my-pagination" (pageChange)="config.currentPage = $event" (pageChange)="pageChange($event)" ></pagination-controls>
+</div>
