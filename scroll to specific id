@@ -1,0 +1,8 @@
+    
+#component
+ const elmnt = document.getElementById('target');
+ elmnt.scrollIntoView();
+ 
+ #html
+ <div id="wrapper" id="target">
+ </div>
