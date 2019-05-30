@@ -1,0 +1,10 @@
+#
+$ npm install --save jquery
+
+#component
+import * as $ from 'jquery/dist/jquery.min.js';
+
+
+$('.likeHeart_' + propertyId).css({ color : 'red'});
+
+$('.likeHeart_' + propertyId).html('ddd');
