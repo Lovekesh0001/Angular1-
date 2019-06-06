@@ -1,0 +1,22 @@
+npm install ngx-cookie-service --save
+
+#in module.ts
+import { CookieService } from 'ngx-cookie-service';
+
+imports: [ BrowserModule, FormsModule, HttpModule ],
+  providers: [ CookieService ],
+  
+#in component.ts
+import { CookieService } from 'ngx-cookie-service';
+
+constructor(
+        private cookieService: CookieService
+        ) {
+        
+const cookieExists: boolean = cookieService.check('test');  
+const allCookies: {} = cookieService.getAll();
+cookieService.deleteAll();
+        
+this.cookieService.set( 'Test', 'Hello World' );
+this.cookieService.get('Test');  
+cookieService.delete('test');
