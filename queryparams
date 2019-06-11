@@ -1,0 +1,43 @@
+#how to get the query params
+1- required parameters
+2- optional parameters
+3- query parameters
+
+import { ActivatedRoute } from '@angular/router';
+
+constructor(private activatedRoute: ActivatedRoute) {}
+
+ngOnInit() {
+this.activatedRoute.queryParamMap.subscribe((queryParamMap) => {  // for query params
+
+this.activatedRoute.snapshot.queryParamMap.has('page');  // returns true if founds
+this.activatedRoute.snapshot.queryParamMap.get('page');  // returns value else null
+this.activatedRoute.snapshot.queryParamMap.getAll('page'); // returns array of parameters else empty
+this.activatedRoute.snapshot.queryParamMap.keys; // returns string array of all parameters
+      if (queryParamMap.get('type')) {
+        this.type = queryParamMap.get('type');
+      }
+
+      if (queryParamMap.get('orderBy')) {
+        this.orderByval = queryParamMap.get('orderBy');
+      }
+});
+
+this.activatedRoute.params.subscribe((params) => {   //get the params
+      this.destinationId = params.destinationId;
+      this.destinationName = params.destinationName;
+});
+}
+
+
+#how to make the query params
+import { Router } from '@angular/router';
+constructor(private router: Router) {}
+
+this.router.navigate(['/destination', this.destinationName, this.destinationId ], { queryParams: { page: newPage, type: form.value.type },
+      queryParamsHandling: 'merge' });
+      
+      
+<a [routerLink]="['/destination', this.destinationName, this.destinationId]" 
+[queryParams]="{ page: newPage, type: form.value.type }"
+queryParamsHandling="merge"></a>
