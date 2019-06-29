@@ -14,8 +14,10 @@ exports: [
 
 ===================================================================================================================================
 #html
+siteKey = 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+secretkey = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';   //for texting purpose
 <ngx-recaptcha2 #captchaElem
-  [siteKey]="'6LemyWYUAAAAAOK2snxeA0sddfoFNnIfdfdfdfdU5bvGNNUl_hIZ'"
+  [siteKey]="'6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'"
   formControlName="recaptcha">
 </ngx-recaptcha2>
 ===================================================================================================================================
