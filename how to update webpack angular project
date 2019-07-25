@@ -1,0 +1,4 @@
+# delete dist
+# delete node_modules
+# delete package-lock.json
+# npm install
