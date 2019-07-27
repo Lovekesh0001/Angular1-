@@ -1,4 +1,5 @@
 # Minification
 # Uglification
 # Bundling
-# Dead 
+# Dead code elimination
+# Ahead of time (AOT) compilation
