@@ -30,3 +30,6 @@ npm install bootstrap — save
 
 (@)install jquery
 npm install jquery — save
+
+(@) show all the html tags
+curl localhost:4200
