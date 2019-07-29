@@ -1,6 +1,4 @@
-# ng add @ng-toolkit/universal
 
-# npm run build:prod
-
-# if shows any error
-npm install webpack-cli@latest -D 
+# ng add @nguniversal/express-engine --clientProject projectName
+# npm run build:ssr
+# npm run serve:ssr
