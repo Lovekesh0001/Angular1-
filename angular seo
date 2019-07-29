@@ -1,0 +1,6 @@
+# ng add @ng-toolkit/universal
+
+# npm run build:prod
+
+# if shows any error
+npm install webpack-cli@latest -D 
