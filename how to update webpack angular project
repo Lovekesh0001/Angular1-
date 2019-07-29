@@ -4,6 +4,9 @@
 # npm install
 
 
+# update angular project
+ng update @angular/cli @angular/core
+
 
 # npm uninstall -g @angular/cli
 # npm cache verify
