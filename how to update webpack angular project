@@ -11,3 +11,7 @@ ng update @angular/cli @angular/core
 # npm uninstall -g @angular/cli
 # npm cache verify
 # npm install -g @angular/cli@latest
+
+
+# if shows any error read the document
+https://github.com/angular/universal/blob/master/docs/v8-upgrade-guide.md
