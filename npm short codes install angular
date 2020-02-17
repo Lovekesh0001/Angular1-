@@ -1,8 +1,94 @@
-(@)install npm
-npm install -g @angular/cli
+($)window.atob("payload")   #it will show the jwt decode value
 
-(@)update npm cli
+($)ngrx read the documents
+
+($)npm install lodash --save  (many javascripts packages libraries modules like shuffle each upper lower)
+
+import { Component } from '@angular/core';
+import 'lodash';
+declare var _: any;
+
+<!-- or second type of use -->
+go to 
+typings.d.ts file
+
+declare module 'lodash';
+import _ from 'loadsh'
+<!-- or second type of use -->
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'a1vactionhomes';
+
+  constructor(){
+  		const array = ['1','2','3'];
+  		console.log(_.shuffle(array));
+	}
+}
+
+
+
+
+
+onSubmit(form: NgForm) {
+    this.userService.editProfile(form.value, this.user_id, this.fileToUpload)
+        .subscribe(
+          (data: any) => {
+              if (data.responseCode === '400') {
+                this.toastr.error(data.responseMessage, 'Eroor ::', {
+                  positionClass: 'toast-top-right',
+                  timeOut: 1000
+                });
+              } else {
+                this.toastr.success(data.responseMessage, 'Success ::', {
+                  positionClass: 'toast-top-right',
+                  timeOut: 1000
+                });
+                  this.router.navigateByUrl('/admin/users');
+              }
+            },
+            (err: any) => {
+              this.router.navigateByUrl('/users/edit/' + this.user_id);
+              this.toastr.error('Something went wrong', 'Eroor ::', {
+                positionClass: 'toast-top-right',
+                timeOut: 1000
+              });
+            });
+  }
+
+  submitPasswordForm(form: NgForm) {
+    this.userService.passwordChangeByAdmin(form.value, this.user_id)
+        .subscribe(
+          (data: any) => {
+              if (data.responseCode === '400') {
+                this.toastr.error(data.responseMessage, 'Eroor ::', {
+                  positionClass: 'toast-top-right',
+                  timeOut: 1000
+                });
+              } else {
+                this.toastr.success(data.responseMessage, 'Success ::', {
+                  positionClass: 'toast-top-right',
+                  timeOut: 1000
+                });
+                  this.router.navigateByUrl('/admin/users');
+              }
+            },
+            (err: any) => {
+              this.router.navigateByUrl('/users/edit/' + this.user_id);
+              this.toastr.error('Something went wrong', 'Eroor ::', {
+                positionClass: 'toast-top-right',
+                timeOut: 1000
+              });
+            });
+  }
+
+(@)install angular
 npm install -g @angular/cli@latest
+
 
 (@)install new angular app
 ng new appName
@@ -10,11 +96,8 @@ ng new appName
 (@)run app
 ng serve
 
-(@)create component
-ng g c componentName
-
-(@) create model
-ng g class models/login --type=model 
+(@)generate new component
+ng g c componentname
 
 (@)if you have more than one module  generate component
 ng generate component register --module=home/home.module
@@ -22,14 +105,161 @@ ng generate component register --module=home/home.module
 or if you dont want automatic import
 ng g component component-name --skip-import
 
-(@) create service
-ng g s token-intercepter
+(@)ng generate p [name]
 
-(@)install bootstrap
-npm install bootstrap — save
+(@)npm install --save bootstrap@3
+"node_modules/bootstrap/dist/css/bootstrap.min.css",
 
-(@)install jquery
-npm install jquery — save
+(@)npm install --save font-awesome angular-font-awesome
+"node_modules/font-awesome/css/font-awesome.css"
 
-(@) show all the html tags
-curl localhost:4200
+(@)ng add @ng-bootstrap/schematics // automatic add all files
+
+
+(@) ng g class models/login --type=model 
+
+(@)if you want to chnge the base url localhost:4200 to localhost:4200/emp/
+ng serve -o --base-href /emp/ 
+
+(@) ng build --aot
+
+npm install tslib
+
+
+# delete dist
+# delete node_modules
+# delete package-lock.json
+# npm install
+
+
+# Repository is not clean.  Please commit or stash any changes before updating.
+ng update @angular/cli @angular/core --allow-dirty
+
+# update angular project
+ng update @angular/cli @angular/core
+
+
+# npm uninstall -g @angular/cli
+# npm cache verify
+# npm install -g @angular/cli@latest
+
+# ng add @nguniversal/express-engine --clientProject projectName
+# npm run build:ssr
+# npm run serve:ssr
+
+
+
+# find error
+grep -nrE '[^a-zA-Z](Slow)?Buffer\s*\(' --exclude-dir node_modules
+
+<a [routerLink]="['/']"></a>
+
+  <a [routerLink]="['/login']"></a>
+
+
+<div *ngIf="isLoggedIn; else loggedOut">
+  Welcome back, friend.
+</div>
+
+<ng-template #loggedOut>
+  Please friend, login.
+</ng-template>
+
+
+<div class="bg-warning" *ngIf="allBusinessImages?.length" style="margin-bottom: 40px">
+
+====================================================================================================
+[ngClass]="{'text-success':true}"
+
+[ngClass]="{'active': uri==='about-us'}"
+
+<ul *ngFor="let person of people">
+  <li [ngClass]="{
+    'text-success':person.country === 'UK',
+    'text-primary':person.country === 'USA',
+    'text-danger':person.country === 'HK'
+  }">{{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+
+<ul *ngFor="let person of people">
+  <li [class.text-success]="person.country === 'UK'"
+      [class.text-primary]="person.country === 'USA'"
+      [class.text-danger]="person.country === 'HK'">{{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+
+====================================================================================================
+
+====================================================================================================
+
+<div [ngStyle]="{'font-size.px':24}" [ngStyle]="{'background-color':'green'}"></<div>
+
+  [ngStyle]="{'background':model.businessesLike === 0 ? '#F0F0F0' : '#C62727'}"
+
+  [style.color] = "isLike === 'like' ? 'red' : 'black'"
+
+
+  <ul *ngFor="let person of people">
+  <li [ngStyle]="{'color':getColor(person.country)}"> {{ person.name }} ({{ person.country }}) (1)
+  </li>
+</ul>
+
+<ul *ngFor="let person of people">
+  <li [style.color]="getColor(person.country)">{{ person.name }} ({{ person.country }})
+  </li>
+</ul>
+
+ getColor(country) { (2)
+    switch (country) {
+      case 'UK':
+        return 'green';
+      case 'USA':
+        return 'blue';
+      case 'HK':
+        return 'red';
+    }
+  
+
+  ====================================================================================================
+
+
+
+	scrollToReviews () {
+  const elmnt = document.getElementById('reviewss');
+    elmnt.scrollIntoView();
+ }
+
+
+ href="{{linkedin ? 'linkedin' : 'javascript: void(0);'}}"
+
+ class="btn btn-sm btn-outline-{{readonly ? 'danger' : 'success'}}" (click)="readonly = !readonly"
+
+
+	
+
+
+
+
+npm i @nguniversal/express-engine --save
+npm i @nguniversal/module-map-ngfactory-loader --save
+
+https://raw.githubusercontent.com/kalyan11021980/angular-ssr-starter/master/webpack.server.config.js
+create file
+webpack.server.config.js
+
+https://raw.githubusercontent.com/kalyan11021980/angular-ssr-starter/master/server.ts
+create file
+server.ts
+
+in package.json add lines and change demo to project name
+
+"e2e": "ng e2e",
+"build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+"serve:ssr": "node dist/server.js",
+"build:client-and-server-bundles": "ng build --prod && ng run demo:server:production",
+"webpack:server": "webpack --config webpack.server.config.js --progress --colors",
+"start-ssr": "npm run build:ssr && npm run serve:ssr"
+
+
+npm run start-ssr
