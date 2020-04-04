@@ -13,3 +13,8 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 public Editor = ClassicEditor;
 
 <ckeditor [editor]="Editor" data="<p>Hello, csharp corner!</p><br/><br/> <b>This is demo for ckeditor 5 with angular 8</br>"></ckeditor>
+
+style.css
+:host ::ng-deep .ck-editor__editable_inline {
+    min-height: 300px;
+}
